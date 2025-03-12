@@ -84,7 +84,7 @@
                     <ul class="d-flex justify-content-between align-items-center">
                         <li class="wallet-card-item">
                             <a href="javascript:void(0);" class="fw_6 text-center" id="btn-popup-down">
-                                <ul class="icon icon-group-transfers">
+                                <ul class="icon icon-bank2  primary_color">
                                     <li class="path1"></li>
                                     <li class="path2"></li>
                                     <li class="path3"></li>
@@ -94,7 +94,7 @@
                         </li>
                         <li class="wallet-card-item">
                             <a class="fw_6" href="#">
-                                <ul class="icon icon-topup">
+                                <ul class="icon icon-wallet-filled-money-tool primary_color">
                                     <li class="path1"></li>
                                     <li class="path2"></li>
                                     <li class="path3"></li>
@@ -104,7 +104,7 @@
                             </a>
                         </li>
                         <li class="wallet-card-item">
-                            <a class="fw_6 btn-card-popup" href="#">
+                            <a class="fw_6  " href="#">
                                 <ul class="icon icon-group-credit-card">
                                     <li class="path1"></li>
                                     <li class="path2"></li>
