@@ -471,13 +471,14 @@ class TransferController extends Controller
                 ));
 
                 $var = curl_exec($curl);
+                dd($var);
+
                 $result = json_decode($var);
                 $status = $result->ResponseCode ?? null;
                 $session_id = $result->RemoteRef ?? null;
                 $tt_mfb_response = $result->TransactionRef ?? null;
                 $api_ref = $result->RemoteRef ?? null;
 
-                dd($result);
 
 
                 curl_close($curl);
