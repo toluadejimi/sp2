@@ -1,4 +1,4 @@
-@extends('layouts.app2')
+@extends('layouts.app')
 @section('content')
 
 
@@ -12,177 +12,171 @@
         </div>
     </div>
 
-<div id="app-wrap">
-    <div class="app-section st1 mt-1 bg_white_color">
-        <div class="tf-container">
-            <div class="wrap-total ">
-                <div class="card col-sm-12 col-xl-6">
-                    <div class="card-body">
-                        <div class="">
-                            <a href="#" class="box-icon bg_primary"><i class="icon-arrow-up_minor primary_color arrow-down"></i></a>
-                            <div class="content">
-                                <p class="fw_4">Income</p>
-                                <h2 class="fw_6 success_color">₦{{number_format($all_income, 2)}}</h2>
-                            </div>
+
+    <div id="app-wrap">
+        <div class="app-section st1 mt-1 bg_white_color">
+            <div class="tf-container">
+                <div class="wrap-total">
+                    <div class="total-item">
+                        <a href="#" class="box-icon bg_primary"><i class="icon-arrow-up_minor primary_color arrow-down"></i></a>
+                        <div class="content">
+                            <p class="fw_4">Income</p>
+                            <h2 class="fw_6 success_color">₦{{number_format($all_income, 2)}}</h2>
+                        </div>
+                    </div>
+                    <div class="total-item">
+                        <a href="#" class="box-icon bg_critical"><i class="icon-arrow-up_minor critical_color arrow-up"></i></a>
+
+                        <div class="content">
+                            <p class="fw_4">Outcome</p>
+                            <h2 class="fw_6 critical_color">₦{{number_format($all_outcome, 2)}}</h2>
                         </div>
                     </div>
                 </div>
-
-
-                <div class="card col-sm-12 col-xl-6">
-                    <div class="card-body">
-                        <div class="">
-                            <a href="#" class="box-icon bg_critical"><i class="icon-arrow-up_minor critical_color arrow-up"></i></a>
-                            <div class="content">
-                                <p class="fw_4">Outcome</p>
-                                <h2 class="fw_6 critical_color">₦{{number_format($all_outcome, 2)}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
-    </div>
-
-    <hr>
 
 
-    <div class="app-section st1 mt-1 mb-5 bg_white_color">
-        <div class="tf-container">
-            <div class="trading-month">
-                <h4 class="fw_5 mb-3">{{\Carbon\Carbon::now()->format('F')}}</h4>
 
-                @foreach($transactions as $data)
+        <div class="app-section st1 mt-1 mb-1 bg_white_color">
+            <div class="tf-container" style="height:750px; width:100%; overflow-y: scroll;">
+                <div class="trading-month">
+                    <h4 class="fw_5 mb-3">{{\Carbon\Carbon::now()->format('F')}}</h4>
 
-                    @if($data->transaction_type == "PURCHASE")
+                    @foreach($transactions as $data)
 
-                        <div class="group-trading-history mb-5">
-                            <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
-                                <div class="inner-left">
-                                    <div class="icon-box rgba_primary">
-                                        <i class="icon icon-credit-card2"></i>
+                        @if($data->transaction_type == "PURCHASE")
+
+                            <div class="group-trading-history mb-5">
+                                <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
+                                    <div class="inner-left">
+                                        <div class="icon-box rgba_primary">
+                                            <i class="icon icon-credit-card2"></i>
+                                        </div>
+                                        <div class="content">
+                                            <h4>POS PURCHASE</h4>
+                                            <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
+                                        </div>
                                     </div>
-                                    <div class="content">
-                                        <h4>POS PURCHASE</h4>
-                                        <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
-                                    </div>
-                                </div>
-                                <span class="num-val success_color">₦{{number_format($data->credit, 2)}}</span>
-                            </a>
-
-                        </div>
-
-                    @elseif($data->transaction_type == "EnkPayTransfer")
-
-                        <div class="group-trading-history mb-5">
-                            <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
-                                <div class="inner-left">
-                                    <div class="icon-box rgba_primary">
-                                        <i class="icon icon-credit-card2"></i>
-                                    </div>
-                                    <div class="content">
-                                        <h4>Wallet Transfer</h4>
-                                        <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
-                                    </div>
-                                </div>
-                                @if($data->credit > 0)
                                     <span class="num-val success_color">₦{{number_format($data->credit, 2)}}</span>
-                                @else
-                                @endif
-                            </a>
+                                </a>
 
-                        </div>
+                            </div>
 
-                    @elseif($data->transaction_type == "BankTransfer" && $data->type == "InterBankTransfer")
+                        @elseif($data->transaction_type == "EnkPayTransfer")
 
-                        <div class="group-trading-history mb-5">
-                            <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
-                                <div class="inner-left">
-                                    <div class="icon-box rgba_primary">
-                                        <i class="icon icon-bank2"></i>
+                            <div class="group-trading-history mb-5">
+                                <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
+                                    <div class="inner-left">
+                                        <div class="icon-box rgba_primary">
+                                            <i class="icon icon-credit-card2"></i>
+                                        </div>
+                                        <div class="content">
+                                            <h4>Wallet Transfer</h4>
+                                            <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
+                                        </div>
                                     </div>
-                                    <div class="content">
-                                        <h4>Bank Transfer</h4>
-                                        <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
+                                    @if($data->credit > 0)
+                                        <span class="num-val success_color">₦{{number_format($data->credit, 2)}}</span>
+                                    @else
+                                    @endif
+                                </a>
+
+                            </div>
+
+                        @elseif($data->transaction_type == "BankTransfer" && $data->type == "InterBankTransfer")
+
+                            <div class="group-trading-history mb-5">
+                                <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
+                                    <div class="inner-left">
+                                        <div class="icon-box rgba_primary">
+                                            <i class="icon icon-bank2"></i>
+                                        </div>
+                                        <div class="content">
+                                            <h4>Bank Transfer</h4>
+                                            <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                @if($data->status == 1)
-                                    <span class="num-val critical_color">₦{{number_format($data->debit, 2)}}</span>
-                                @else
-                                    <span class="num-val warning_color">₦{{number_format($data->debit, 2)}}</span>
-                                @endif
-                            </a>
+                                    @if($data->status == 1)
+                                        <span class="num-val critical_color">₦{{number_format($data->debit, 2)}}</span>
+                                    @else
+                                        <span class="num-val warning_color">₦{{number_format($data->debit, 2)}}</span>
+                                    @endif
+                                </a>
 
-                        </div>
+                            </div>
 
 
-                    @elseif($data->transaction_type == "BankTransfer" && $data->title == "Commission")
+                        @elseif($data->transaction_type == "BankTransfer" && $data->title == "Commission")
 
-                        <div class="group-trading-history mb-5">
-                            <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
-                                <div class="inner-left">
-                                    <div class="icon-box rgba_primary">
-                                        <i class="icon icon-bank2"></i>
+                            <div class="group-trading-history mb-5">
+                                <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
+                                    <div class="inner-left">
+                                        <div class="icon-box rgba_primary">
+                                            <i class="icon icon-bank2"></i>
+                                        </div>
+                                        <div class="content">
+                                            <h4>Commission</h4>
+                                            <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
+                                        </div>
                                     </div>
-                                    <div class="content">
-                                        <h4>Commission</h4>
-                                        <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
+                                    <span class="num-val success_color">₦{{number_format($data->credit, 2)}}</span>
+                                </a>
+
+                            </div>
+
+                        @elseif($data->transaction_type == "VirtualFundWallet")
+
+                            <div class="group-trading-history mb-5">
+                                <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
+                                    <div class="inner-left">
+                                        <div class="icon-box rgba_primary">
+                                            <i class="icon icon-wallet-filled-money-tool"></i>
+                                        </div>
+                                        <div class="content">
+                                            <h4>Wallet Funding</h4>
+                                            <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <span class="num-val success_color">₦{{number_format($data->credit, 2)}}</span>
-                            </a>
+                                    <span class="num-val success_color">₦{{number_format($data->credit, 2)}}</span>
+                                </a>
 
-                        </div>
+                            </div>
 
-                    @elseif($data->transaction_type == "VirtualFundWallet")
+                        @elseif($data->transaction_type == "Reversal")
 
-                        <div class="group-trading-history mb-5">
-                            <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
-                                <div class="inner-left">
-                                    <div class="icon-box rgba_primary">
-                                        <i class="icon icon-wallet-filled-money-tool"></i>
+                            <div class="group-trading-history mb-5">
+                                <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
+                                    <div class="inner-left">
+                                        <div class="icon-box rgba_primary">
+                                            <i class="icon icon-back"></i>
+                                        </div>
+                                        <div class="content">
+                                            <h4>Reversal</h4>
+                                            <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
+                                        </div>
                                     </div>
-                                    <div class="content">
-                                        <h4>Wallet Funding</h4>
-                                        <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
-                                    </div>
-                                </div>
-                                <span class="num-val success_color">₦{{number_format($data->credit, 2)}}</span>
-                            </a>
+                                    <span class="num-val success_color">₦{{number_format($data->credit, 2)}}</span>
+                                </a>
 
-                        </div>
+                            </div>
 
-                    @elseif($data->transaction_type == "Reversal")
+                        @else
+                        @endif
 
-                        <div class="group-trading-history mb-5">
-                            <a class="tf-trading-history" href="open-transaction?id={{$data->id}}">
-                                <div class="inner-left">
-                                    <div class="icon-box rgba_primary">
-                                        <i class="icon icon-back"></i>
-                                    </div>
-                                    <div class="content">
-                                        <h4>Reversal</h4>
-                                        <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
-                                    </div>
-                                </div>
-                                <span class="num-val success_color">₦{{number_format($data->credit, 2)}}</span>
-                            </a>
+                    @endforeach
 
-                        </div>
 
-                    @else
-                    @endif
-
-                @endforeach
-
+                </div>
 
             </div>
-
         </div>
+
+
     </div>
-</div>
+
+
+
 
 <div class="bottom-navigation-bar">
     <div class="tf-container">
