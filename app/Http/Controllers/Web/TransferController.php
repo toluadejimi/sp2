@@ -477,6 +477,8 @@ class TransferController extends Controller
                 $tt_mfb_response = $result->TransactionRef ?? null;
                 $api_ref = $result->RemoteRef ?? null;
 
+                dd($result);
+
 
                 curl_close($curl);
 
