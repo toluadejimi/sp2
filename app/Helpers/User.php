@@ -5,20 +5,16 @@ use App\Models\ErrandKey;
 use App\Models\ProvidusBank;
 use App\Models\Setting;
 use App\Models\Terminal;
+use App\Models\TidConfig;
 use App\Models\Ttmfb;
 use App\Models\User;
 use App\Models\VfdBank;
 use App\Models\VirtualAccount;
-use App\Models\TidConfig;
 use Illuminate\Support\Facades\Auth;
-
-
-
-
+use Illuminate\Support\Str;
 
 
 if (!function_exists('main_account')) {
-
 
 
     function main_account()
@@ -106,7 +102,6 @@ if (!function_exists('select_account')) {
     {
 
 
-
         $account = User::where('id', Auth::id())->first();
 
         //dd($account);
@@ -127,7 +122,6 @@ if (!function_exists('select_account')) {
         return $account_array;
     }
 }
-
 
 
 if (!function_exists('user_virtual_account_list')) {
@@ -170,13 +164,9 @@ if (!function_exists('user_virtual_account_list')) {
         }
 
 
-
         return [];
     }
 }
-
-
-
 
 
 if (!function_exists('terminal_info')) {
@@ -187,12 +177,10 @@ if (!function_exists('terminal_info')) {
         $tm = Terminal::select('merchantNo', 'terminalNo', 'merchantName', 'deviceSN')->where('user_id', Auth::id())->first() ?? null;
         if ($tm != null) {
             return $tm;
-        }return $tm;
+        }
+        return $tm;
     }
 }
-
-
-
 
 
 if (!function_exists('tid_config')) {
@@ -205,9 +193,6 @@ if (!function_exists('tid_config')) {
         return $tm;
     }
 }
-
-
-
 
 
 if (!function_exists('send_error')) {
@@ -282,6 +267,48 @@ if (!function_exists('trx')) {
 
 
         return $refcode;
+    }
+}
+
+
+if (!function_exists('get_user_token')) {
+
+    function get_user_token($phone_no, $password)
+    {
+
+        $databody = array(
+            'phone' => $phone_no,
+            'password' => $password,
+        );
+
+        $body = json_encode($databody);
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://enkpayapp.enkwave.com/api/phone-login',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $body,
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Accept: application/json',
+            ),
+        ));
+
+        $var = curl_exec($curl);
+        curl_close($curl);
+        $var = json_decode($var);
+
+        return  $var->data->token;
+
+
+
+
     }
 }
 
@@ -380,9 +407,9 @@ if (!function_exists('store_providus_banks')) {
                 );
             }
 
-            $rr =  DB::table('providus_banks')->insert($history);
+            $rr = DB::table('providus_banks')->insert($history);
 
-            return  $rr;
+            return $rr;
         }
     }
 }
@@ -453,7 +480,7 @@ if (!function_exists('get_banks')) {
             $status = $var->status ?? null;
 
             $get_wbanks = [];
-            if($status == "success"){
+            if ($status == "success") {
                 foreach ($var->data as $key => $value) {
                     $get_wbanks[] = array(
                         "bankName" => $value->name,
@@ -470,11 +497,8 @@ if (!function_exists('get_banks')) {
         }
 
 
-
-
     }
 }
-
 
 
 if (!function_exists('resolve_bank')) {
@@ -486,7 +510,6 @@ if (!function_exists('resolve_bank')) {
         if ($set->bank == 'ttmfb') {
 
 
-
             $username = env('MUSERNAME');
             $prkey = env('MPRKEY');
             $sckey = env('MSCKEY');
@@ -494,7 +517,6 @@ if (!function_exists('resolve_bank')) {
             $unixTimeStamp = timestamp();
             $sha = sha512($unixTimeStamp . $prkey);
             $authHeader = 'magtipon ' . $username . ':' . base64_encode(hex2bin($sha));
-
 
 
             $curl = curl_init();
@@ -525,7 +547,6 @@ if (!function_exists('resolve_bank')) {
             $error = $var->error->message ?? null;
 
             $status = $var->ResponseCode ?? null;
-
 
 
             if ($status == 90000) {
@@ -638,8 +659,6 @@ if (!function_exists('resolve_bank')) {
             }
 
 
-
-
             if (!empty($customer_name) || $customer_name == null) {
 
                 $databody = array(
@@ -699,7 +718,6 @@ if (!function_exists('resolve_bank')) {
         if ($set->bank == 'woven') {
 
 
-
             $api = env('WOVENKEY');
 
             $databody = array(
@@ -709,7 +727,6 @@ if (!function_exists('resolve_bank')) {
 
             $body = json_encode($databody);
             $curl = curl_init();
-
 
 
             curl_setopt_array($curl, array(
@@ -743,10 +760,8 @@ if (!function_exists('resolve_bank')) {
         }
 
 
-
     }
 }
-
 
 
 if (!function_exists('create_v_account')) {
@@ -758,7 +773,6 @@ if (!function_exists('create_v_account')) {
         $bvn = user_bvn() ?? null;
 
         $user_id = User::where('bvn', $bvn)->first()->id ?? null;
-
 
 
         $chk_V_account = VirtualAccount::where('user_id', $user_id)->where('v_bank_name', 'VFD MFB')->first() ?? null;
@@ -897,8 +911,6 @@ function create_p_account()
         dd('hellop');
 
 
-
-
         $client = env('CLIENTID');
         $xauth = env('HASHKEY');
 
@@ -921,7 +933,6 @@ function create_p_account()
             "account_name" => $name,
             "bvn" => $bvn,
         );
-
 
 
         $databody = json_encode($data);
@@ -983,8 +994,6 @@ function create_p_account()
 }
 
 
-
-
 if (!function_exists('decryption')) {
 
     function decryption($encryptedStr)
@@ -999,8 +1008,6 @@ if (!function_exists('decryption')) {
         return $decryptedText;
     }
 }
-
-
 
 
 if (!function_exists('encrypt')) {
@@ -1039,10 +1046,6 @@ function sha512($message)
 {
     return hash('sha512', $message);
 }
-
-
-
-
 
 
 if (!function_exists('get_pool')) {
@@ -1112,7 +1115,6 @@ function ttmfb_balance()
     $authHeader = 'magtipon ' . $username . ':' . base64_encode(hex2bin($sha));
 
 
-
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
@@ -1150,6 +1152,7 @@ function ttmfb_balance()
         return "No Network";
     }
 }
+
 function woevn_balance()
 {
 
@@ -1202,7 +1205,6 @@ function psb_data()
     $psb_pass = env('PSBPASS');
 
 
-
     $databody = array(
 
         "phone" => $psb_phone,
@@ -1234,7 +1236,7 @@ function psb_data()
     $var = json_decode($var);
 
     $status = $var->status ?? null;
-    if($status == true){
+    if ($status == true) {
 
         $data['balance'] = $var->data->main_wallet;
         $data['token'] = $var->data->token;
@@ -1242,20 +1244,11 @@ function psb_data()
     }
 
 
-
-
-
-
-
-
-
-
 }
 
 
-
 if (!function_exists('credit_user_wallet')) {
-    function credit_user_wallet($url , $user_email, $amount, $order_id, $type, $session_id)
+    function credit_user_wallet($url, $user_email, $amount, $order_id, $type, $session_id)
     {
 
         try {
@@ -1380,11 +1373,11 @@ function woven_create($first_name, $last_name, $bvn, $nin)
 {
 
 
-    $set = Setting::where('id',1)->first();
+    $set = Setting::where('id', 1)->first();
 
     $key = env('WOVENKEY');
     $databody = array(
-        "customer_reference" => $last_name . "_" . $first_name.random_int(0000, 9999),
+        "customer_reference" => $last_name . "_" . $first_name . random_int(0000, 9999),
         "name" => $last_name . " " . $first_name,
         "email" => Auth::user()->email,
         "mobile_number" => Auth::user()->phone,
@@ -1425,13 +1418,11 @@ function woven_create($first_name, $last_name, $bvn, $nin)
         $data['account_name'] = $var->data->account_name;
         $data['status'] = 00;
         return $data;
-    }else{
+    } else {
         $data['status'] = 99;
-        $data['error'] = "Wov Error ===>>> ". $var->message;
+        $data['error'] = "Wov Error ===>>> " . $var->message;
         return $data;
     }
-
-
 
 
 }

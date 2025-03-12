@@ -47,15 +47,23 @@ class LoginController extends Controller
         $phone = preg_replace('/^\[?0\]?/', '', $request->phone);
         $phone_no = ['phone' => "+234".$phone, 'password' => $request->password];
 
+        $password = $request->password;
+
+
+        $token = get_user_token($phone_no, $password);
+
         if (Auth::attempt($phone_no)) {
             $user = Auth::user();
 
             $deviceDetails = $this->deviceService->getDeviceDetails();
             $user->session_id = Str::random(60);
             $user->device_details = $deviceDetails;
+            $user->token = $token;
             $user->save();
 
             session(['session_id' => $user->session_id, 'device_details' => $user->device_details]);
+
+
 
             return redirect('dashboard');
         }

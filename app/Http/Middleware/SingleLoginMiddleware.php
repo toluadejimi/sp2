@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,7 @@ class SingleLoginMiddleware
         $user = Auth::user();
 
         if ($user && $user->session_id !== session('session_id')) {
+            User::where('id', Auth::id())->update(['token' => null]);
             Auth::logout();
             return redirect()->route('login')->with('error', 'Your session has expired or you are logged in elsewhere.');
         }
