@@ -471,7 +471,7 @@ class TransferController extends Controller
                 ));
 
                 $var = curl_exec($curl);
-                dd($var);
+                dd($var, $post_data);
 
                 $result = json_decode($var);
                 $status = $result->ResponseCode ?? null;
