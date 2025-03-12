@@ -112,12 +112,12 @@
 <script type="text/javascript" src="{{url('')}}/public/assets/javascript/swiper.js"></script>
 
 
-<script src="{{ asset('/sw.js') }}"></script>
+<script src="{{url('')}}/public/sw.js"></script>
 <script>
     if ("serviceWorker" in navigator) {
         // Register a service worker hosted at the root of the
         // site using the default scope.
-        navigator.serviceWorker.register("/public/sw.js").then(
+        navigator.serviceWorker.register("sw.js").then(
             (registration) => {
                 console.log("Service worker registration succeeded:", registration);
             },

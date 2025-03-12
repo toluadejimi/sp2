@@ -67,12 +67,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
-<script src="{{ asset('/sw.js') }}"></script>
+<script src="{{url('')}}/public/sw.js"></script>
 <script>
     if ("serviceWorker" in navigator) {
         // Register a service worker hosted at the root of the
         // site using the default scope.
-        navigator.serviceWorker.register("/public/sw.js").then(
+        navigator.serviceWorker.register("sw.js").then(
             (registration) => {
                 console.log("Service worker registration succeeded:", registration);
             },
