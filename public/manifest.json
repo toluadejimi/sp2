@@ -1,7 +1,7 @@
 {
-    "name": "My Laravel PWA",
+    "name": "SprintPay",
     "short_name": "MyPWA",
-    "start_url": "/",
+    "start_url": "/login",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
