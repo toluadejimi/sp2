@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon" sizes="192x192" href="app/icons/icon-192x192.png">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
-    @laravelPWA
+
 
 
     <style>
