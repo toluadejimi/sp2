@@ -3413,7 +3413,7 @@
             <div class="wrap-transfer mb-5">
                 <div class="tf-container">
 
-                    <a href="sprint-pay-transfer" class="action-sheet-transfer">
+                    <a href="#" class="action-sheet-transfer">
                         <div class="icon"><i class="icon-friends"></i></div>
                         <div class="content">
                             <h4 class="fw_6">Transfer to Sprint Pay User</h4>
