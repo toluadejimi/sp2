@@ -24,6 +24,28 @@
             </div>
         </div>
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+    @if (session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session()->get('error') }}
+        </div>
+    @endif
+
+
     <div class="card-secton">
         <div class="tf-container">
             <div class="tf-balance-box">
@@ -464,7 +486,7 @@
         <div class="tf-container">
             <div class="tf-title d-flex justify-content-between">
                 <h3 class="fw_6">Latest Transactions</h3>
-                <a href="all-trasnactions" class="primary_color fw_6">View All</a>
+                <a href="/history" class="primary_color fw_6">View All</a>
             </div>
 
 
@@ -615,7 +637,7 @@
             <ul class="tf-navigation-bar">
                 <li class="active"><a class="fw_6 d-flex justify-content-center align-items-center flex-column"
                                       href="#"><i class="icon-home2"></i> Home</a></li>
-                <li><a class="fw_4 d-flex justify-content-center align-items-center flex-column" href="#"><i
+                <li><a class="fw_4 d-flex justify-content-center align-items-center flex-column" href="history"><i
                             class="icon-history"></i> History</a></li>
                 <li><a class="fw_4 d-flex justify-content-center align-items-center flex-column" href="#"><i
                             class="icon-scan-qr-code"></i> </a></li>
@@ -628,7 +650,7 @@
                                 stroke="#717171" stroke-width="1.25"/>
                         </svg>
                         Rewards</a></li>
-                <li><a class="fw_4 d-flex justify-content-center align-items-center flex-column" href="#"><i
+                <li><a class="fw_4 d-flex justify-content-center align-items-center flex-column" href="profile"><i
                             class="icon-user-outline"></i> Profile</a></li>
             </ul>
             <!-- <span class="line"></span> -->

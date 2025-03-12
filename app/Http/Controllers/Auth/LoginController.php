@@ -64,8 +64,6 @@ class LoginController extends Controller
 
 
 
-
-
     }
 
 
@@ -77,20 +75,27 @@ class LoginController extends Controller
         $chk_user_no = User::where('phone', $request->phone)->first() ?? null;
         $chk_nin = User::where('phone', $request->phone)->first()->identification_number ?? null;
         $chk_bvn = User::where('phone', $request->phone)->first()->bvn ?? null;
+        $code = random_int(000000, 999999);
+        $url = url('')."/email-verification?email=$request->email&code=$code";
+
+
+
 
 
         if($chk_user_email != null){
 
             $status = User::where('email', $request->email)->first()->status;
             if($status == 0){
-                return view('web.auth.pending_verification');
+
+                $data['email'] = $request->email;
+                $data['code'] = $code;
+                $data['message'] = 0;
+
+                return view('web.auth.pending_verification', $data);
+
             }
             return back()->with('error', "User with the email already exist");
         }
-
-        $code = random_int(000000, 999999);
-        $url = url('')."/email-verification?email=$request->email&code=$code";
-
 
 
 
@@ -100,6 +105,8 @@ class LoginController extends Controller
             if($status == 0){
                 $data['email'] = $request->email;
                 $data['code'] = $code;
+                $data['message'] = 0;
+
                 return view('web.auth.pending_verification', $data);
             }
             return back()->with('error', "User with phone no already exist");
@@ -128,9 +135,9 @@ class LoginController extends Controller
            $reg->last_name = $request->last_name;
            $reg->phone = $request->phone;
            $reg->email = $request->email;
-           $reg->bvn = $request->bvn;
            $reg->sms_code = $code;
-           $reg->identification_number = $request->nin;
+           $reg->b_name = $request->b_name;
+           $reg->password = bcrypt($request->password);
            $reg->save();
        }
 
@@ -139,6 +146,7 @@ class LoginController extends Controller
 
             $data['email'] = $request->email;
             $data['code'] = $request->code;
+            $data['message'] = 0;
             return view('web.auth.pending_verification', $data);
         }
         return back()->with('error', 'Something went wrong');
@@ -175,6 +183,28 @@ class LoginController extends Controller
             $data['message'] = 1;
             return view('web.auth.pending_verification', $data);
         }
+
+
+
+    }
+    public function email_verification(request $request)
+    {
+
+
+        $ck_user = User::where('email', $request->email)->first() ?? null;
+        $ck_code = User::where('email', $request->email)->first()->sms_code ?? null;
+
+        if($ck_user == null){
+            $data['message'] = 1;
+            return view('web.auth.emailverified', $data);
+        }
+
+        if($request->code == $ck_code){
+            $data['message'] = 0;
+            User::where('email', $request->email)->update(['is_email_verified' => 1]);
+            return view('web.auth.emailverified', $data);
+        }
+
 
 
 

@@ -30,6 +30,7 @@ Route::get('/proxy', [ProxyController::class, 'proxy']);
 Route::get('/',  [HomeController::class,'index']);
 Route::get('get-started',  [HomeController::class,'get_started']);
 Route::get('resend-email',  [LoginController::class,'resend_email']);
+Route::get('email-verification',  [LoginController::class,'email_verification']);
 
 
 
@@ -44,11 +45,19 @@ Route::get('pending',  [HomeController::class,'pending'])->name('pending');
 //Dashboard
 Route::middleware(['checksession', 'single.login'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/history', [DashboardController::class, 'all_history']);
+    Route::post('filter_transaction', [DashboardController::class, 'filter_transaction']);
     Route::get('/logout', [DashboardController::class, 'logout']);
     Route::get('/profile', [ProfileController::class, 'index.blade.php']);
     Route::get('/bank-transfer', [TransferController::class, 'bank_transfer_index']);
     Route::post('/process_bank_transfer', [TransferController::class, 'process_bank_transfer']);
     Route::get('/transfer_preview', [TransferController::class, 'transfer_preview']);
     Route::post('/transfer_now', [TransferController::class, 'transfer_now']);
+    Route::get('/set-pin', [TransferController::class, 'set_pin_page']);
+    Route::get('/transaction-successful', [TransferController::class, 'transaction_successful']);
+    Route::post('/set_pin', [TransferController::class, 'set_pin']);
+    Route::get('/open-transaction', [TransferController::class, 'open_transaction']);
+
+
 });
 

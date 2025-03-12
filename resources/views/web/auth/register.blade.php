@@ -38,15 +38,6 @@
                 <input type="text" name="b_name" placeholder="Sprint Pay Inc">
             </div>
 
-            <div class="group-input">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="info@example.com">
-            </div>
-
-            <div class="group-input">
-                <label>Phone</label>
-                <input type="text" name="phone" value="+234" >
-            </div>
 
             <div class="group-input">
                 <label>Website Url</label>
@@ -66,7 +57,21 @@
                 <input type="text" name="last_name" placeholder="Doe">
             </div>
 
+            <div class="group-input">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="info@example.com">
+            </div>
 
+            <div class="group-input">
+                <label>Phone</label>
+                <input type="text" name="phone" value="+234" >
+            </div>
+
+            <div class="group-input auth-pass-input last">
+                <label>Password</label>
+                <input type="password" name="password" class="password-input" placeholder="Password">
+                <a class="icon-eye password-addon" id="password-addon"></a>
+            </div>
 
 
 
@@ -76,9 +81,9 @@
         </form>
         <div class="auth-line">Or</div>
 {{--        <ul class="bottom socials-login mb-4">--}}
-{{--            <li><a href="home.html"><img src="{{url('')}}/public/assets/images/icon-socials/facebook.png" alt="image">Continue with Facebook</a></li>--}}
-{{--            <li><a href="home.html"><img src="{{url('')}}/public/assets/images/icon-socials/google.png" alt="image">Continue with Google</a></li>--}}
-{{--            <li><a href="home.html"><img src="{{url('')}}/public/assets/images/icon-socials/apple.png" alt="image">Continue with Google</a></li>--}}
+{{--            <li><a href="/dashboard"><img src="{{url('')}}/public/assets/images/icon-socials/facebook.png" alt="image">Continue with Facebook</a></li>--}}
+{{--            <li><a href="/dashboard"><img src="{{url('')}}/public/assets/images/icon-socials/google.png" alt="image">Continue with Google</a></li>--}}
+{{--            <li><a href="/dashboard"><img src="{{url('')}}/public/assets/images/icon-socials/apple.png" alt="image">Continue with Google</a></li>--}}
 {{--        </ul>--}}
         <p class="mb-9 fw-3 text-center ">Already had an account? <a href="/login" class="auth-link-rg" >Login</a></p>
     </div>

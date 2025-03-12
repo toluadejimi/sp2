@@ -54,19 +54,35 @@
 
                     <div class="box-custom-select">
 
+
+
                         <div class="custom-dropdown">
                             <div class="dropdown-btn" onclick="toggleDropdown()">Choose Bank</div>
                             <div class="dropdown-content">
                                 <input type="text" name="bank_code" id="searchBank" onkeyup="filterBanks()" placeholder="Search bank...">
                                 <ul id="bankList">
-                                    @foreach ($banks as $data)
-                                        <li onclick="selectBank('{{$data->code}}', '{{$data->bankName}}')">
-                                            {{$data->bankName}}
-                                        </li>
-                                    @endforeach
+
+                                    @if($baanky == "ttmfb")
+                                        @foreach ($banks as $data)
+                                            <li onclick="selectBank('{{$data->code}}', '{{$data->bankName}}')">
+                                                {{$data->bankName}}
+                                            </li>
+                                        @endforeach
+                                    @elseif($baanky == "woven")
+
+                                        @foreach ($banks as $data)
+                                            <li onclick="selectBank('{{ $data['code'] }}', '{{ $data['bankName'] }}')">
+                                                {{ $data['bankName'] }}
+                                            </li>
+                                        @endforeach
+
+                                    @endif
+
                                 </ul>
                             </div>
                         </div>
+
+
 
 
                         {{--                        <select name="bank_code" required data-live-search="true" id="selectOption"--}}
@@ -132,6 +148,28 @@
                 </div>
 
                 <div class="bottom-navigation-bar bottom-btn-fixed st2">
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if (session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('error') }}
+                        </div>
+                    @endif
+
+
                     <button type="submit" class="tf-btn accent large">Continue</button>
                 </div>
 

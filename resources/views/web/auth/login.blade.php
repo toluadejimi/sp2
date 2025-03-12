@@ -44,9 +44,9 @@
         </form>
         <div class="auth-line">Or</div>
 {{--        <ul class="bottom socials-login mb-4">--}}
-{{--            <li><a href="home.html"><img src="{{url('')}}/public/assets/images/icon-socials/facebook.png" alt="image">Continue with Facebook</a></li>--}}
-{{--            <li><a href="home.html"><img src="{{url('')}}/public/assets/images/icon-socials/google.png" alt="image">Continue with Google</a></li>--}}
-{{--            <li><a href="home.html"><img src="{{url('')}}/public/assets/images/icon-socials/apple.png" alt="image">Continue with Google</a></li>--}}
+{{--            <li><a href="/dashboard"><img src="{{url('')}}/public/assets/images/icon-socials/facebook.png" alt="image">Continue with Facebook</a></li>--}}
+{{--            <li><a href="/dashboard"><img src="{{url('')}}/public/assets/images/icon-socials/google.png" alt="image">Continue with Google</a></li>--}}
+{{--            <li><a href="/dashboard"><img src="{{url('')}}/public/assets/images/icon-socials/apple.png" alt="image">Continue with Google</a></li>--}}
 {{--        </ul>--}}
         <p class="mb-9 fw-3 text-center ">Create a new account? <a href="/register" class="auth-link-rg" >Sign up</a></p>
     </div>

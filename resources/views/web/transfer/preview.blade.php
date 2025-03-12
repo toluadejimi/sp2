@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 @extends('layouts.app')
 @section('content')
 
@@ -113,7 +114,39 @@
                     {{ session()->get('error') }}
                 </div>
             @endif
-            <a href="#" id="btn-popup-down" class="tf-btn accent large">Confirm</a>
+
+                @php
+
+                 if($total > Auth::user()->main_wallet){
+                    $process = 0;
+                  }else{
+                     $process = 1;
+                   }
+
+                @endphp
+
+
+                @if($data->funds_account == "main_account")
+
+                    @if($process == 0)
+                        <a href="dashboard" id="" class="tf-btn secondary large">Fund Account</a>
+                    @else
+                        <a href="#" id="btn-popup-down" class="tf-btn accent large">Continue</a>
+
+                    @endif
+
+                @else
+
+
+                    @if($total < Auth::user()->bonus_wallet)
+                        <a href="#" id="btn-popup-down" class="tf-btn secondary large">Fund Account</a>
+                    @endif
+
+                @endif
+
+
+
+
         </div>
     </div>
     <div class="tf-panel down">
@@ -131,22 +164,78 @@
 
             <div class="mt-5">
                 <div class="tf-container">
-                    <form class="tf-form-verify" method="post"  action="transfer_now?id={{$data->id}}">
+
+                    <form class="tf-form-verify" method="post" action="transfer_now?id={{ $data->id }}" id="transfer-form">
                         @csrf
                         <div class="d-flex group-input-verify">
-                            <input type="password" name="pin1" maxlength="1" pattern="[0-9]" class="input-verify" value="">
-                            <input type="password" name="pin2" maxlength="1" pattern="[0-9]" class="input-verify" value="">
-                            <input type="password" name="pin3" maxlength="1" pattern="[0-9]" class="input-verify" value="">
-                            <input type="password" name="pin4" maxlength="1" pattern="[0-9]" class="input-verify" value="">
+                            <input type="password" name="pin1" maxlength="1" pattern="[0-9]" class="input-verify" required>
+                            <input type="password" name="pin2" maxlength="1" pattern="[0-9]" class="input-verify" required>
+                            <input type="password" name="pin3" maxlength="1" pattern="[0-9]" class="input-verify" required>
+                            <input type="password" name="pin4" maxlength="1" pattern="[0-9]" class="input-verify" required>
+                            <input type="hidden" name="trx_id" value="{{ $data->id }}">
                         </div>
-                        <div class="text-send-code">
-                            <p class="fw_4"><a href="forgot_pin">Forgot Pin ?</p><a/>
-                        </div>
-                        <div class="mt-7 mb-6">
 
-                            <button type="submit" class="tf-btn accent">Continue</button>
+                        <div class="text-send-code">
+                            <p class="fw_4"><a href="forgot_pin">Forgot Pin?</a></p>
                         </div>
+
+                        @if($data->funds_account == "main_account")
+                            @if($total > Auth::user()->main_wallet)
+                                <div class="mt-7 mb-6">
+                                    <button type="submit" class="tf-btn secondary">Fund your account</button>
+                                </div>
+                            @else
+                                <div class="mt-7 mb-6">
+                                    <button type="submit" class="tf-btn accent" id="submit-btn">
+                                        <span id="btn-text">Continue</span>
+                                        <span id="btn-loader" class="loader" style="display: none;"></span>
+                                    </button>
+                                </div>
+                            @endif
+                        @endif
                     </form>
+
+                    <style>
+                        .loader {
+                            display: inline-block;
+                            width: 15px;
+                            height: 15px;
+                            border: 2px solid #dae3ff;
+                            border-radius: 50%;
+                            border-top: 2px solid transparent;
+                            animation: spin 0.5s linear infinite;
+                            margin-left: 8px;
+                        }
+
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    </style>
+
+                    <script>
+                        document.getElementById("submit-btn").addEventListener("click", function(event) {
+                            let form = document.getElementById("transfer-form");
+
+                            if (!form.checkValidity()) {
+                                form.reportValidity();
+                                return;
+                            }
+                            event.preventDefault();
+
+                            let btnText = document.getElementById("btn-text");
+                            let btnLoader = document.getElementById("btn-loader");
+
+                            btnText.style.display = "none";
+                            btnLoader.style.display = "inline-block";
+                            this.disabled = true;
+
+                            setTimeout(() => form.submit(), 300);
+                        });
+                    </script>
+
+
+
                 </div>
 
 
