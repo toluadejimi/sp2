@@ -1179,7 +1179,6 @@ class TransferController extends Controller
     {
         $amount = $request->amount;
         return view('web.transfer.transaction-success', compact('amount'));
-
     }
 
 
