@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
+
 
     <title>Sprint Pay</title>
 
@@ -20,6 +19,7 @@
     <link rel="apple-touch-icon" sizes="192x192" href="app/icons/icon-192x192.png">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
+
     <!-- PWA  -->
     <meta name="theme-color" content="#6777ef"/>
     <link rel="apple-touch-icon" href="{{ url('')}}/public/assets/images/logo.png">
@@ -27,7 +27,56 @@
 
 
 
+    <style>
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+        }
 
+        .dropdown-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgb(243,245,255);
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            width: 100%;
+            background: white;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .dropdown-content input {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .dropdown-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dropdown-content li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown-content li:hover {
+            background: #f1f1f1;
+        }
+    </style>
 
 
 </head>
@@ -63,10 +112,6 @@
 <script type="text/javascript" src="{{url('')}}/public/assets/javascript/swiper.js"></script>
 
 
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
 <script src="{{url('')}}/public/sw.js"></script>
 <script>
     if ("serviceWorker" in navigator) {
@@ -84,6 +129,9 @@
         console.error("Service workers are not supported.");
     }
 </script>
+
+
+
 
 </body>
 </html>
