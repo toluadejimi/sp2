@@ -12,13 +12,16 @@ final class Deferred
      */
     private $promise;
 
-    /** @var callable */
+    /** @var callable(T):void */
     private $resolveCallback;
 
-    /** @var callable */
+    /** @var callable(\Throwable):void */
     private $rejectCallback;
 
-    public function __construct(callable $canceller = null)
+    /**
+     * @param (callable(callable(T):void,callable(\Throwable):void):void)|null $canceller
+     */
+    public function __construct(?callable $canceller = null)
     {
         $this->promise = new Promise(function ($resolve, $reject): void {
             $this->resolveCallback = $resolve;

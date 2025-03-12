@@ -14,6 +14,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "infobip-community/infobip-api-php-sdk": "^1.1",
         "jenssegers/agent": "^2.6",
+        "ladumor/laravel-pwa": "^0.0.4",
         "ladumor/one-signal": "^1.0",
         "laravel/framework": "^10.0",
         "laravel/passport": "^11.8",

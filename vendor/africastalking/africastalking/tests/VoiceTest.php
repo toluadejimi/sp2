@@ -4,6 +4,7 @@ namespace AfricasTalking\SDK\Tests;
 use AfricasTalking\SDK\AfricasTalking;
 use GuzzleHttp\Exception\GuzzleException;
 
+#[\AllowDynamicProperties]
 class VoiceTest extends \PHPUnit\Framework\TestCase
 {
 	public function setUp(): void
@@ -22,7 +23,7 @@ class VoiceTest extends \PHPUnit\Framework\TestCase
 			'from' => Fixtures::$voicePhoneNumber,
 			'to' => Fixtures::$voicePhoneNumber2
 		]);
-		$this->assertObjectHasAttribute('entries', $response['data']);
+		$this->assertObjectHasProperty('entries', $response['data']);
         
     }
 

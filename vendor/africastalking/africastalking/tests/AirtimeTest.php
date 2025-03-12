@@ -4,6 +4,7 @@ namespace AfricasTalking\SDK\Tests;
 use AfricasTalking\SDK\AfricasTalking;
 use GuzzleHttp\Exception\GuzzleException;
 
+#[\AllowDynamicProperties]
 class AirtimeTest extends \PHPUnit\Framework\TestCase
 {
 	public function setup(): void
@@ -26,7 +27,7 @@ class AirtimeTest extends \PHPUnit\Framework\TestCase
             ]]
 		]);
 
-		$this->assertObjectHasAttribute('responses', $response['data']);
+		$this->assertObjectHasProperty('responses', $response['data']);
 	}
 
     public function testSendAirtimeIdempotency()
@@ -41,7 +42,7 @@ class AirtimeTest extends \PHPUnit\Framework\TestCase
             'idempotencyKey' => 'req-' . mt_rand(10, 100),
         ]);
 
-		$this->assertObjectHasAttribute('responses', $response['data']);
+		$this->assertObjectHasProperty('responses', $response['data']);
 	}
 
 	public function testSendAirtimeToMany()
@@ -58,6 +59,6 @@ class AirtimeTest extends \PHPUnit\Framework\TestCase
             ]]
 		]);
 
-		$this->assertObjectHasAttribute('responses', $response['data']);
+		$this->assertObjectHasProperty('responses', $response['data']);
 	}
 }

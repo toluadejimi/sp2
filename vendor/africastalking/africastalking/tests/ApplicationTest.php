@@ -4,6 +4,7 @@ namespace AfricasTalking\SDK\Tests;
 use AfricasTalking\SDK\AfricasTalking;
 use GuzzleHttp\Exception\GuzzleException;
 
+#[\AllowDynamicProperties]
 class ApplicationTest extends \PHPUnit\Framework\TestCase
 {
 	public function setUp(): void
@@ -19,6 +20,6 @@ class ApplicationTest extends \PHPUnit\Framework\TestCase
 	public function testFetchAplication()
 	{
 		$response = $this->client->fetchApplicationData();
-		$this->assertObjectHasAttribute('UserData', $response['data']);
+		$this->assertObjectHasProperty('UserData', $response['data']);
 	}
 }

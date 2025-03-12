@@ -81,7 +81,7 @@ class PassportServiceProvider extends ServiceProvider
      */
     protected function registerMigrations()
     {
-        if ($this->app->runningInConsole() && Passport::$runsMigrations && ! config('passport.client_uuids')) {
+        if ($this->app->runningInConsole() && Passport::$runsMigrations && ! Passport::clientUuids()) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
     }
@@ -169,9 +169,11 @@ class PassportServiceProvider extends ServiceProvider
                     $this->makeRefreshTokenGrant(), Passport::tokensExpireIn()
                 );
 
-                $server->enableGrantType(
-                    $this->makePasswordGrant(), Passport::tokensExpireIn()
-                );
+                if (Passport::$passwordGrantEnabled) {
+                    $server->enableGrantType(
+                        $this->makePasswordGrant(), Passport::tokensExpireIn()
+                    );
+                }
 
                 $server->enableGrantType(
                     new PersonalAccessGrant, Passport::personalAccessTokensExpireIn()
