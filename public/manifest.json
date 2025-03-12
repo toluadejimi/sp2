@@ -1,14 +1,14 @@
 {
     "name": "Sprint Pay",
     "short_name": "SP",
-    "start_url": "/",
+    "start_url": "https://sprintpay.online",
     "background_color": "#6777ef",
     "description": "Easy Payment Management",
     "display": "fullscreen",
     "theme_color": "#6777ef",
     "icons": [
         {
-            "src": "logo.PNG",
+            "src": "/assets/images/logo.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
