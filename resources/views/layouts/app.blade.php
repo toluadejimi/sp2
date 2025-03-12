@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
 
     <title>Sprint Pay</title>
 
@@ -19,12 +20,10 @@
     <link rel="apple-touch-icon" sizes="192x192" href="app/icons/icon-192x192.png">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
-
     <!-- PWA  -->
     <meta name="theme-color" content="#6777ef"/>
     <link rel="apple-touch-icon" href="{{ url('')}}/public/assets/images/logo.png">
     <link rel="manifest" href="{{url('')}}/public/manifest.json">
-
 
 
     <style>
@@ -79,6 +78,8 @@
     </style>
 
 
+
+
 </head>
 <body>
 
@@ -112,6 +113,10 @@
 <script type="text/javascript" src="{{url('')}}/public/assets/javascript/swiper.js"></script>
 
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 <script src="{{url('')}}/public/sw.js"></script>
 <script>
     if ("serviceWorker" in navigator) {
@@ -129,9 +134,6 @@
         console.error("Service workers are not supported.");
     }
 </script>
-
-
-
 
 </body>
 </html>
