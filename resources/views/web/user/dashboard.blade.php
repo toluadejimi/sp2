@@ -588,6 +588,7 @@
                                             </div>
                                             <div class="content">
                                                 <h4>Wallet Funding</h4>
+                                                <p>{{ $data->email}}</p>
                                                 <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
                                             </div>
                                         </div>

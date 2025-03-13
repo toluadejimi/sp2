@@ -74,6 +74,7 @@
                                         <div class="content">
                                             <h4>Wallet Transfer</h4>
                                             <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
+
                                         </div>
                                     </div>
                                     @if($data->credit > 0)
@@ -135,6 +136,7 @@
                                         </div>
                                         <div class="content">
                                             <h4>Wallet Funding</h4>
+                                            <p>{{ $data->email}}</p>
                                             <p>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</p>
                                         </div>
                                     </div>
