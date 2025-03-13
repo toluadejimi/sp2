@@ -168,10 +168,10 @@
                     <form class="tf-form-verify" method="post" action="transfer_now?id={{ $data->id }}" id="transfer-form">
                         @csrf
                         <div class="d-flex group-input-verify">
-                            <input type="password" name="pin1" maxlength="1" pattern="[0-9]" class="input-verify" required>
-                            <input type="password" name="pin2" maxlength="1" pattern="[0-9]" class="input-verify" required>
-                            <input type="password" name="pin3" maxlength="1" pattern="[0-9]" class="input-verify" required>
-                            <input type="password" name="pin4" maxlength="1" pattern="[0-9]" class="input-verify" required>
+                            <input type="password" name="pin1" maxlength="1" pattern="[0-9]" inputmode="numeric" class="input-verify" required>
+                            <input type="password" name="pin2" maxlength="1" pattern="[0-9]" inputmode="numeric" class="input-verify" required>
+                            <input type="password" name="pin3" maxlength="1" pattern="[0-9]" inputmode="numeric" class="input-verify" required>
+                            <input type="password" name="pin4" maxlength="1" pattern="[0-9]" inputmode="numeric" class="input-verify" required>
                             <input type="hidden" name="trx_id" value="{{ $data->id }}">
                         </div>
 
@@ -190,6 +190,10 @@
                                         <span id="btn-text">Continue</span>
                                         <span id="btn-loader" class="loader" style="display: none;"></span>
                                     </button>
+
+
+
+
                                 </div>
                             @endif
                         @endif

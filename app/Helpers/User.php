@@ -279,6 +279,8 @@ if (!function_exists('get_user_token')) {
         $databody = array(
             'phone' => $phone_no,
             'password' => $password,
+            'pass' => "pass",
+
         );
 
         $body = json_encode($databody);

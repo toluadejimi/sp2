@@ -4,7 +4,7 @@
     <div class="header">
         <div class="tf-container">
             <div class="tf-statusbar d-flex justify-content-center align-items-center">
-                <a href="24_transfer-by-bank.html#" class="back-btn"> <i class="icon-left"></i> </a>
+                <a href="#" class="back-btn"> <i class="icon-left"></i> </a>
                 <h3>Transfer</h3>
             </div>
         </div>
@@ -16,7 +16,7 @@
                         <i class="icon-right"></i></a></h3>
                 <div class="tf-spacing-12"></div>
             </div>
-            <form class="tf-form mt-3" action="process_bank_transfer" method="post">
+            <form class="tf-form mt-3" action="process_bank_transfer" id="transfer" method="post">
                 @csrf
 
 
@@ -170,7 +170,50 @@
                     @endif
 
 
-                    <button type="submit" class="tf-btn accent large">Continue</button>
+                        <button type="submit" class="tf-btn accent" id="submit-btn">
+                            <span id="btn-text">Continue</span>
+                            <span id="btn-loader" class="loader" style="display: none;"></span>
+                        </button>
+
+
+                        <style>
+                            .loader {
+                                display: inline-block;
+                                width: 15px;
+                                height: 15px;
+                                border: 2px solid #dae3ff;
+                                border-radius: 50%;
+                                border-top: 2px solid transparent;
+                                animation: spin 0.5s linear infinite;
+                                margin-left: 8px;
+                            }
+
+                            @keyframes spin {
+                                0% { transform: rotate(0deg); }
+                                100% { transform: rotate(360deg); }
+                            }
+                        </style>
+
+                        <script>
+                            document.getElementById("submit-btn").addEventListener("click", function(event) {
+                                let form = document.getElementById("transfer");
+
+                                if (!form.checkValidity()) {
+                                    form.reportValidity();
+                                    return;
+                                }
+                                event.preventDefault();
+
+                                let btnText = document.getElementById("btn-text");
+                                let btnLoader = document.getElementById("btn-loader");
+
+                                btnText.style.display = "none";
+                                btnLoader.style.display = "inline-block";
+                                this.disabled = true;
+
+                                setTimeout(() => form.submit(), 300);
+                            });
+                        </script>
                 </div>
 
             </form>

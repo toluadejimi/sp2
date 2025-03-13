@@ -68,7 +68,9 @@ class LoginController extends Controller
             return redirect('dashboard');
         }
 
-        return back()->with('error', "Email or Password Incorrect");
+
+
+        return back()->with('error', "Email or Password Incorrect")->withInput();
 
 
 
