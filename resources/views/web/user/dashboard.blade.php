@@ -1,6 +1,19 @@
 @extends('layouts.app')
 @section('content')
 
+
+    <script src="https://cdn.jsdelivr.net/npm/pulltorefreshjs"></script>
+
+    <script>
+        PullToRefresh.init({
+            mainElement: "body",
+            onRefresh: function() {
+                location.reload();
+            }
+        });
+    </script>
+
+
     <div class="app-header">
         <div class="tf-container">
             <div class="tf-topbar d-flex justify-content-between align-items-center">
