@@ -105,7 +105,7 @@
 
                 <div class="group-input">
                     <label for="">Account Number</label>
-                    <input type="number" id="inputField" name="acct_no" onkeyup="updateForm3()"
+                    <input type="number" id="inputField" inputmode="numeric" name="acct_no" onkeyup="updateForm3()"
                            oninput="limitInputLength()" placeholder="Enter 10-digit account number" required>
                     <div class="credit-card">
                         {{--                        <span>Saved Number</span>--}}
@@ -123,7 +123,7 @@
 
                 <div class="group-input input-field input-money">
                     <label for="">Amount</label>
-                    <input type="text" name="amount"  value="₦ 100" required class="search-field value_input st1"
+                    <input type="text" name="amount" inputmode="numeric" value="₦ 100" required class="search-field value_input st1"
                            type="text">
                     <span class="icon-clear"></span>
                     <div class="money">

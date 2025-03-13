@@ -204,7 +204,7 @@
                     Rewards</a>
             </li>
             <li>
-                <a class="fw_4 d-flex justify-content-center align-items-center flex-column" href="69_profile.html">
+                <a class="fw_4 d-flex justify-content-center align-items-center flex-column" href="/profile">
                     <i class="icon-user-outline"></i> Profile</a>
             </li>
         </ul>

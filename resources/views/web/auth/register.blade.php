@@ -64,7 +64,7 @@
 
             <div class="group-input">
                 <label>Phone</label>
-                <input type="text" name="phone" value="+234"  required>
+                <input type="text" inputmode="numeric" name="phone" value="+234"  required>
             </div>
 
             <div class="group-input auth-pass-input last">

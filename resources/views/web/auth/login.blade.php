@@ -30,7 +30,7 @@
             <h1>Login</h1>
             <div class="group-input">
                 <label>Phone</label>
-                <input type="number" name="phone" placeholder="0812345678" value="{{ old('phone') }}" required>
+                <input type="number" name="phone" inputmode="numeric" placeholder="0812345678" value="{{ old('phone') }}" required>
             </div>
             <div class="group-input auth-pass-input last">
                 <label>Password</label>
