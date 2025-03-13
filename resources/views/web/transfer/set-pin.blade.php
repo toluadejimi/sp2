@@ -28,10 +28,10 @@
 
                         @csrf
                         <div class="d-flex group-input-verify">
-                            <input type="password" name="pin1" maxlength="1" pattern="[0-9]" class="input-verify" value="">
-                            <input type="password" name="pin2" maxlength="1" pattern="[0-9]" class="input-verify" value="">
-                            <input type="password" name="pin3" maxlength="1" pattern="[0-9]" class="input-verify" value="">
-                            <input type="password" name="pin4" maxlength="1" pattern="[0-9]" class="input-verify" value="">
+                            <input type="password" name="pin1" maxlength="1" pattern="[0-9]" inputmode="numeric" class="input-verify" value="">
+                            <input type="password" name="pin2" maxlength="1" pattern="[0-9]" inputmode="numeric" class="input-verify" value="">
+                            <input type="password" name="pin3" maxlength="1" pattern="[0-9]" inputmode="numeric" class="input-verify" value="">
+                            <input type="password" name="pin4" maxlength="1" pattern="[0-9]" inputmode="numeric" class="input-verify" value="">
                         </div>
 
 
