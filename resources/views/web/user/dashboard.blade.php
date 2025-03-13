@@ -2,16 +2,7 @@
 @section('content')
 
 
-    <script src="https://cdn.jsdelivr.net/npm/pulltorefreshjs"></script>
 
-    <script>
-        PullToRefresh.init({
-            mainElement: "body",
-            onRefresh: function() {
-                location.reload();
-            }
-        });
-    </script>
 
 
     <div class="app-header">

@@ -26,7 +26,16 @@
     <link rel="manifest" href="{{url('')}}/public/manifest.json">
 
 
+    <script src="https://cdn.jsdelivr.net/npm/pulltorefreshjs"></script>
 
+    <script>
+        PullToRefresh.init({
+            mainElement: "body",
+            onRefresh: function() {
+                location.reload();
+            }
+        });
+    </script>
 
 
     <style>
