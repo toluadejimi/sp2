@@ -62,9 +62,6 @@ class LoginController extends Controller
             $user->save();
 
             session(['session_id' => $user->session_id, 'device_details' => $user->device_details]);
-
-
-
             return redirect('dashboard');
         }
 
@@ -219,6 +216,78 @@ class LoginController extends Controller
 
 
     }
+    public function reset_password(request $request)
+    {
+        return view('web.auth.reset-password');
+
+    }
+
+    public function reset_password_now(request $request)
+    {
+
+        $code = random_int(000000, 999999);
+        $url = url('')."/set-password?email=$request->email&code=$code";
+        $ck_user = User::where('email', $request->email)->first() ?? null;
+        User::where('email', $request->email)->update(['sms_code' => $code]);
+
+          if($ck_user){
+
+              $data = array(
+                  'fromsender' => env('MAIL_USERNAME'), 'SprintPay',
+                  'subject' => "Reset Password",
+                  'toreceiver' => $request->email,
+                  'user' => $request->first_name,
+                  'url' => $url,
+              );
+
+              $send_mail = Mail::send('emails.resetpass', ["data1" => $data], function ($message) use ($data) {
+                  $message->from($data['fromsender']);
+                  $message->to($data['toreceiver']);
+                  $message->subject($data['subject']);
+              });
+
+              if($send_mail){
+                  return back()->with('message', 'An email has been sent to your registered email, Check spam if not available in inbox');
+              }
+
+
+
+          }else{
+              return back()->with('error', "User Not found on our system");
+          }
+
+    }
+
+
+    public function set_password(request $request)
+    {
+
+        return view('web.auth.setpassword');
+
+    }
+
+    public function set_password_now(request $request)
+    {
+
+        if($request->password != $request->password_confirm){
+            return back()->with('error', 'Incorrect password');
+        }
+
+        $get_user_code = User::where('email', $request->email)->first()->sms_code ?? null;
+        if($get_user_code == $request->code){
+            $set_pass = User::where('email', $request->email)->update(['password' => bcrypt($request->password)]);
+            if($set_pass){
+                return back()->with('message', 'Password has been reset successfully');
+            }
+        }
+
+
+
+
+
+    }
+
+
 
 
 
