@@ -33,7 +33,8 @@ Route::get('resend-email',  [LoginController::class,'resend_email']);
 Route::get('email-verification',  [LoginController::class,'email_verification']);
 Route::get('reset-password',  [LoginController::class,'reset_password']);
 Route::post('reset_password',  [LoginController::class,'reset_password_now']);
-Route::get('set_password_now',  [LoginController::class,'set_password_now']);
+Route::post('set_password_now',  [LoginController::class,'set_password_now']);
+Route::get('set-password',  [LoginController::class,'set_password']);
 
 
 

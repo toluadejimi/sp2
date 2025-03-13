@@ -262,7 +262,18 @@ class LoginController extends Controller
     public function set_password(request $request)
     {
 
-        return view('web.auth.setpassword');
+        $data['email'] = $request->email;
+        $data['code'] = $request->code;
+
+        if($data['email'] === null || $data['code'] === null){
+            $data['error_code'] = "400";
+            $data['message'] = 1;
+            $data['error_message'] = "Parameters missing";
+            return view('web.auth.errorpage', $data);
+        }
+
+
+        return view('web.auth.setpassword', $data);
 
     }
 
@@ -277,8 +288,16 @@ class LoginController extends Controller
         if($get_user_code == $request->code){
             $set_pass = User::where('email', $request->email)->update(['password' => bcrypt($request->password)]);
             if($set_pass){
-                return back()->with('message', 'Password has been reset successfully');
+                return redirect('get-started')->with('message', 'Password has been reset successfully, You can login now');
             }
+        }else{
+
+            $data['error_code'] = "400";
+            $data['message'] = 1;
+            $data['error_message'] = "Code does not match";
+
+            return view('web.auth.errorpage', $data);
+
         }
 
 

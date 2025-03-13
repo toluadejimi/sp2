@@ -28,8 +28,8 @@
 
             <div class="mb-9 fw-3 text-center">
 
-                <h1>Forgot Password</h1>
-                <p class="my-4">Enter your email to reset your password</p>
+                <h1>Set your Password</h1>
+                <p class="my-4">Choose a strong and password you can remember</p>
             </div>
 
 
@@ -40,6 +40,8 @@
             <div class="group-input mt-2">
                 <label>Password</label>
                 <input type="text" name="password"  placeholder="*********" required>
+                <input type="email" name="email"   value="{{$email}}" hidden>
+                <input type="text" name="code" hidden value="{{$code}}">
             </div>
 
 
