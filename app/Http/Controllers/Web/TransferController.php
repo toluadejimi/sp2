@@ -226,7 +226,12 @@ class TransferController extends Controller
         $amount = $var->amount ?? 0; // Ensure $amount is defined
 
         if ($message === "Unauthenticated.") {
-            User::where('id', Auth::id())->update(['token' => null]);
+            $userId = Auth::user()->id();
+            $usr = User::find($userId);
+            if ($usr) {
+                $usr->token = null;
+                $usr->save();
+            }
             Auth::logout();
             return redirect()->route('login')->with('error', 'Your session has expired. Please login again.');
         }

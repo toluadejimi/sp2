@@ -55,9 +55,6 @@ class LoginController extends Controller
 
         if (Auth::attempt($phone_no)) {
             $user = Auth::user();
-
-
-
             $deviceDetails = $this->deviceService->getDeviceDetails();
             $user->session_id = Str::random(60);
             $user->device_details = $deviceDetails;
@@ -91,8 +88,6 @@ class LoginController extends Controller
                 $message->to($data['toreceiver']);
                 $message->subject($data['subject']);
             });
-
-
 
             return redirect('dashboard');
         }
