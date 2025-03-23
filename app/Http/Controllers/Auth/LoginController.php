@@ -78,6 +78,8 @@ class LoginController extends Controller
         $status = $var->status ?? null;
         $message = $var->message ?? "Something went wrong";
 
+        dd($message, $token);
+
 
         if (Auth::attempt($phone_no)) {
 
