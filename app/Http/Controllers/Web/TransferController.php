@@ -226,12 +226,7 @@ class TransferController extends Controller
         $amount = $var->amount ?? 0; // Ensure $amount is defined
 
         if ($message === "Unauthenticated.") {
-            $userId = Auth::user()->id();
-            $usr = User::find($userId);
-            if ($usr) {
-                $usr->token = null;
-                $usr->save();
-            }
+            User::where('id', Auth::id())->update(['token' => null]);
             Auth::logout();
             return redirect()->route('login')->with('error', 'Your session has expired. Please login again.');
         }
@@ -253,7 +248,7 @@ class TransferController extends Controller
             }
 
             $data = array(
-                'fromsender' => 'noreply@enkpay.com', 'SprintPay',
+                'fromsender' => 'noreply@enkpay.com', 'SPRINTPAY',
                 'subject' => "Transfer Notification",
                 'amount' => $amount,
                 'user' => Auth::user()->first_name,
