@@ -83,6 +83,7 @@ class LoginController extends Controller
                 'ip' => $request->ip(),
                 'date' => date('y-m-d h:i:s'),
                 'user' => Auth::user()->first_name,
+                'toreceiver' => Auth::user()->email,
             );
 
             Mail::send('emails.login', ["data1" => $data], function ($message) use ($data) {
