@@ -55,6 +55,7 @@ Route::middleware(['checksession', 'single.login'])->group(function () {
     Route::get('/logout', [DashboardController::class, 'logout']);
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::get('/bank-transfer', [TransferController::class, 'bank_transfer_index']);
+    Route::get('/qtransfer', [TransferController::class, 'quick_transfer']);
     Route::post('/process_bank_transfer', [TransferController::class, 'process_bank_transfer']);
     Route::get('/transfer_preview', [TransferController::class, 'transfer_preview']);
     Route::post('/transfer_now', [TransferController::class, 'transfer_now']);

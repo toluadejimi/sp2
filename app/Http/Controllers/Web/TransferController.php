@@ -68,12 +68,19 @@ class TransferController extends Controller
             $data = [];
 
             $bens = Beneficiary::select('id', 'name', 'bank_code', 'acct_no')->where('user_id', Auth::id())->get() ?? [];
+            $transfers = Transaction::latest()
+             ->where([
+                 'user_id' => Auth::id(),
+                 'transaction_type' => "BankTransfer",
+                 'status' => 1
+             ])->take('20')->get();
 
             $data['account'] = $account;
             $data['transfer_charge'] = $transfer_charge;
             $data['banks'] = $banks;
             $data['beneficariy'] = $bens;
             $data['baanky'] = $set->bank;
+            $data['transfers'] = $transfers;
 
 
             return view('web.transfer.index', $data);
@@ -135,10 +142,29 @@ class TransferController extends Controller
 
 
     }
+    public function quick_transfer(request $request)
+    {
+
+        $tranx = Transaction::where('id', $request->id)->first();
+        if($tranx){
+//            if($tranx->provider == null){
+//                return back()->with('error', 'Provider not set, Use Transfer above');
+//            }
+
+            $data['account'] = select_account();
+            $data['trx'] = $tranx;
+            return view('web.transfer.quick-transfer', $data);
+
+        }
+
+
+
+    }
 
 
     public function process_bank_transfer(request $request)
     {
+
 
 
         $amount = preg_replace('/[^\d]/', '', $request->input('amount'));
