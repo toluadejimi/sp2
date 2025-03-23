@@ -307,7 +307,6 @@ if (!function_exists('get_user_token')) {
         $var = json_decode($var);
         $status = $var->status ?? null;
 
-        dd($var);
 
         if($status === false){
         }else{
