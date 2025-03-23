@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\ProxyController;
 use App\Http\Controllers\Web\TransferController;
@@ -52,7 +53,7 @@ Route::middleware(['checksession', 'single.login'])->group(function () {
     Route::get('/history', [DashboardController::class, 'all_history']);
     Route::post('filter_transaction', [DashboardController::class, 'filter_transaction']);
     Route::get('/logout', [DashboardController::class, 'logout']);
-    Route::get('/profile', [ProfileController::class, 'index.blade.php']);
+    Route::get('/profile', [ProfileController::class, 'index']);
     Route::get('/bank-transfer', [TransferController::class, 'bank_transfer_index']);
     Route::post('/process_bank_transfer', [TransferController::class, 'process_bank_transfer']);
     Route::get('/transfer_preview', [TransferController::class, 'transfer_preview']);

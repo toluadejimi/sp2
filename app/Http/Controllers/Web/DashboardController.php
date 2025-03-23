@@ -52,7 +52,6 @@ class DashboardController extends Controller
 
         if ($request->from != null && $request->to != null) {
 
-            dd("hello 1");
             $data['transactions'] = Transaction::whereBetween('created_at', [$request->from . ' 00:00:00', $request->to . ' 23:59:59'])
                 ->where('user_id', Auth::id())
                 ->take(1000)->get();

@@ -1869,6 +1869,17 @@ class TransactionController extends Controller
 
                     if ($user_email !== null) {
 
+                        $emailSettings = Setting::first();
+                        if ($emailSettings) {
+                            Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                            Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                            Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                            Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                            Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                            Config::set('mail.from.address', $emailSettings->mail_from_address);
+                            Config::set('mail.from.name', $emailSettings->mail_from_name);
+                        }
+
                         $data = array(
                             'fromsender' => 'noreply@enkpay.com', 'EnkPay',
                             'subject' => "Bank Transfer",
@@ -2118,6 +2129,17 @@ class TransactionController extends Controller
 
 
                     if ($user_email !== null) {
+
+                        $emailSettings = Setting::first();
+                        if ($emailSettings) {
+                            Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                            Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                            Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                            Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                            Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                            Config::set('mail.from.address', $emailSettings->mail_from_address);
+                            Config::set('mail.from.name', $emailSettings->mail_from_name);
+                        }
 
                         $data = array(
                             'fromsender' => 'noreply@enkpay.com', 'EnkPay',
@@ -2521,6 +2543,17 @@ class TransactionController extends Controller
 
 
                 if ($user_email !== null) {
+
+                    $emailSettings = Setting::first();
+                    if ($emailSettings) {
+                        Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                        Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                        Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                        Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                        Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                        Config::set('mail.from.address', $emailSettings->mail_from_address);
+                        Config::set('mail.from.name', $emailSettings->mail_from_name);
+                    }
 
                     $data = array(
                         'fromsender' => 'noreply@enkpay.com', 'EnkPay',
@@ -3366,6 +3399,17 @@ class TransactionController extends Controller
 
                 if ($user_email !== null) {
 
+                    $emailSettings = Setting::first();
+                    if ($emailSettings) {
+                        Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                        Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                        Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                        Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                        Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                        Config::set('mail.from.address', $emailSettings->mail_from_address);
+                        Config::set('mail.from.name', $emailSettings->mail_from_name);
+                    }
+
                     $data = array(
                         'fromsender' => 'noreply@enkpay.com', 'EnkPay',
                         'subject' => "Bank Transfer",
@@ -3625,6 +3669,17 @@ class TransactionController extends Controller
 
 
                 if ($user_email !== null) {
+
+                    $emailSettings = Setting::first();
+                    if ($emailSettings) {
+                        Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                        Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                        Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                        Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                        Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                        Config::set('mail.from.address', $emailSettings->mail_from_address);
+                        Config::set('mail.from.name', $emailSettings->mail_from_name);
+                    }
 
                     $data = array(
                         'fromsender' => 'noreply@enkpay.com', 'EnkPay',
@@ -4095,6 +4150,17 @@ class TransactionController extends Controller
 
             if (!empty(user_email())) {
 
+                $emailSettings = Setting::first();
+                if ($emailSettings) {
+                    Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                    Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                    Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                    Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                    Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                    Config::set('mail.from.address', $emailSettings->mail_from_address);
+                    Config::set('mail.from.name', $emailSettings->mail_from_name);
+                }
+
                 $data = array(
                     'fromsender' => 'noreply@enkpay.com', 'EnkPay',
                     'subject' => "Debit Notification",
@@ -4115,6 +4181,17 @@ class TransactionController extends Controller
             //receiver email
 
             if (!empty($receiver_email)) {
+
+                $emailSettings = Setting::first();
+                if ($emailSettings) {
+                    Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                    Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                    Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                    Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                    Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                    Config::set('mail.from.address', $emailSettings->mail_from_address);
+                    Config::set('mail.from.name', $emailSettings->mail_from_name);
+                }
 
                 $data = array(
                     'fromsender' => 'noreply@enkpay.com', 'EnkPay',
@@ -6773,6 +6850,16 @@ class TransactionController extends Controller
             PendingTransaction::where('ref_trans_id', $request->payout_reference)->delete() ?? null;
 
             if ($email !== null) {
+                $emailSettings = Setting::first();
+                if ($emailSettings) {
+                    Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                    Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                    Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                    Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                    Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                    Config::set('mail.from.address', $emailSettings->mail_from_address);
+                    Config::set('mail.from.name', $emailSettings->mail_from_name);
+                }
 
                 $data = array(
                     'fromsender' => 'noreply@enkpay.com', 'EnkPay',

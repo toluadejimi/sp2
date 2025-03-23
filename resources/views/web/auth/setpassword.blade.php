@@ -106,7 +106,7 @@
 {{--            <li><a href="/dashboard"><img src="{{url('')}}/public/assets/images/icon-socials/google.png" alt="image">Continue with Google</a></li>--}}
 {{--            <li><a href="/dashboard"><img src="{{url('')}}/public/assets/images/icon-socials/apple.png" alt="image">Continue with Google</a></li>--}}
 {{--        </ul>--}}
-        <p class="mb-9 fw-3 text-center ">Remember your login now? <a href="/get_started" class="auth-link-rg" >Login</a></p>
+        <p class="mb-9 fw-3 text-center ">Remember your login now? <a href="/get-started" class="auth-link-rg" >Login</a></p>
     </div>
 </div>
 

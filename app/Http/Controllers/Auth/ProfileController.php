@@ -796,6 +796,17 @@ class ProfileController extends Controller
 
             if ($check == $email) {
 
+                $emailSettings = Setting::first();
+                if ($emailSettings) {
+                    Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                    Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                    Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                    Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                    Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                    Config::set('mail.from.address', $emailSettings->mail_from_address);
+                    Config::set('mail.from.name', $emailSettings->mail_from_name);
+                }
+
                 //send email
                 $data = array(
                     'fromsender' => 'noreply@enkpay.com', 'EnkPay',

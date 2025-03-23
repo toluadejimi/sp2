@@ -18,6 +18,7 @@ use App\Models\Setting;
 
 
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -55,6 +56,8 @@ class LoginController extends Controller
         if (Auth::attempt($phone_no)) {
             $user = Auth::user();
 
+
+
             $deviceDetails = $this->deviceService->getDeviceDetails();
             $user->session_id = Str::random(60);
             $user->device_details = $deviceDetails;
@@ -62,6 +65,34 @@ class LoginController extends Controller
             $user->save();
 
             session(['session_id' => $user->session_id, 'device_details' => $user->device_details]);
+
+            $emailSettings = Setting::first();
+            if ($emailSettings) {
+                Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                Config::set('mail.from.address', $emailSettings->mail_from_address);
+                Config::set('mail.from.name', $emailSettings->mail_from_name);
+            }
+
+            $data = array(
+                'fromsender' => 'noreply@enkpay.com', 'EnkPay',
+                'subject' => "One Time Password",
+                'ip' => $request->ip(),
+                'date' => date('y-m-d h:i:s'),
+                'user' => Auth::user()->first_name,
+            );
+
+            Mail::send('emails.login', ["data1" => $data], function ($message) use ($data) {
+                $message->from($data['fromsender']);
+                $message->to($data['toreceiver']);
+                $message->subject($data['subject']);
+            });
+
+
+
             return redirect('dashboard');
         }
 
@@ -119,6 +150,16 @@ class LoginController extends Controller
             return back()->with('error', "User with phone no already exist");
         }
 
+        $emailSettings = Setting::first();
+        if ($emailSettings) {
+            Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+            Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+            Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+            Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+            Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+            Config::set('mail.from.address', $emailSettings->mail_from_address);
+            Config::set('mail.from.name', $emailSettings->mail_from_name);
+        }
 
 
         $data = array(
@@ -170,6 +211,16 @@ class LoginController extends Controller
         $code = User::where('email', $request->email)->first()->sms_code;
         $url = url('')."/email-verification?email=$request->email&code=$code";
 
+        $emailSettings = Setting::first();
+        if ($emailSettings) {
+            Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+            Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+            Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+            Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+            Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+            Config::set('mail.from.address', $emailSettings->mail_from_address);
+            Config::set('mail.from.name', $emailSettings->mail_from_name);
+        }
 
         $data = array(
             'fromsender' => env('MAIL_USERNAME'), 'EnkPay',
@@ -230,7 +281,19 @@ class LoginController extends Controller
         $ck_user = User::where('email', $request->email)->first() ?? null;
         User::where('email', $request->email)->update(['sms_code' => $code]);
 
+
           if($ck_user){
+
+              $emailSettings = Setting::first();
+              if ($emailSettings) {
+                  Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                  Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                  Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                  Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                  Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                  Config::set('mail.from.address', $emailSettings->mail_from_address);
+                  Config::set('mail.from.name', $emailSettings->mail_from_name);
+              }
 
               $data = array(
                   'fromsender' => env('MAIL_USERNAME'), 'SprintPay',
