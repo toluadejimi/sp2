@@ -79,7 +79,7 @@ class LoginController extends Controller
 
             $data = array(
                 'fromsender' => 'noreply@enkpay.com', 'EnkPay',
-                'subject' => "One Time Password",
+                'subject' => "Login Notification",
                 'ip' => $request->ip(),
                 'date' => date('y-m-d h:i:s'),
                 'user' => Auth::user()->first_name,
