@@ -19,7 +19,9 @@ use App\Models\WebsiteTransfer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class TransferController extends Controller
 {
@@ -233,6 +235,36 @@ class TransferController extends Controller
             return redirect('bank-transfer')->with('error', $message);
         } elseif ($status === true) {
             $amount = $tranx->amount;
+
+            $emailSettings = Setting::first();
+            if ($emailSettings) {
+                Config::set('mail.mailers.smtp.host', $emailSettings->mail_host);
+                Config::set('mail.mailers.smtp.port', $emailSettings->mail_port);
+                Config::set('mail.mailers.smtp.encryption', $emailSettings->mail_encryption);
+                Config::set('mail.mailers.smtp.username', $emailSettings->mail_username);
+                Config::set('mail.mailers.smtp.password', $emailSettings->mail_password);
+                Config::set('mail.from.address', $emailSettings->mail_from_address);
+                Config::set('mail.from.name', $emailSettings->mail_from_name);
+            }
+
+            $data = array(
+                'fromsender' => 'noreply@enkpay.com', 'SprintPay',
+                'subject' => "Transfer Notification",
+                'amount' => $amount,
+                'user' => Auth::user()->first_name,
+                'toreceiver' => Auth::user()->email,
+            );
+
+            Mail::send('emails.transfer', ["data1" => $data], function ($message) use ($data) {
+                $message->from($data['fromsender']);
+                $message->to($data['toreceiver']);
+                $message->subject($data['subject']);
+            });
+
+
+
+
+
             return view('web.transfer.transaction-success', compact('amount'));
         } else {
             return redirect('bank-transfer')->with('error', "Something went wrong");
