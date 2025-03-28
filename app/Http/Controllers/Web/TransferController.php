@@ -128,7 +128,15 @@ class TransferController extends Controller
             $data = [];
 
             $bens = Beneficiary::select('id', 'name', 'bank_code', 'acct_no')->where('user_id', Auth::id())->get() ?? [];
+            $transfers = Transaction::latest()
+                ->where([
+                    'user_id' => Auth::id(),
+                    'transaction_type' => "BankTransfer",
+                    'status' => 1
+                ])->take('20')->get();
 
+
+            $data['transfers'] = $transfers;
             $data['account'] = $account;
             $data['transfer_charge'] = $transfer_charge;
             $data['banks'] = $banks;
